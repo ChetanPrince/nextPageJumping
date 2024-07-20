@@ -1,27 +1,47 @@
-const btns = document.querySelectorAll(".btn-css");
-btns.forEach(btn=>{btn.addEventListener("click", ()=>{
-    const images = document.querySelectorAll(".images");
-    images.forEach(image=>{
-        if(image.classList.contains("hide")){
-            image.classList.remove("hide");
-        }else{
-            image.classList.add("hide");
-        };
-    })
-})})
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.images');
+    const buttons = document.querySelectorAll('#buttons button[id^="btns-"]');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentPage = 1;
+    const imagesPerPage = 4;
+    const totalPages = Math.ceil(images.length / imagesPerPage);
 
+    function showPage(page) {
+        const start = (page - 1) * imagesPerPage;
+        const end = page * imagesPerPage;
+        images.forEach((image, index) => {
+            image.classList.toggle('hide', !(index >= start && index < end));
+        });
 
-// Firstly check how many elements are in images class or container element
+        buttons.forEach((button, index) => {
+            button.classList.toggle('active', index === page - 1);
+        });
 
+        prevBtn.disabled = page === 1;
+        nextBtn.disabled = page === totalPages;
+    }
 
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            currentPage = index + 1;
+            showPage(currentPage);
+        });
+    });
 
-const images = document.querySelectorAll("#container .images");
-console.log(images.length);
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
 
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    });
 
-// btns should have a response where elements have to be created if there is no hard coded images and if there is some json ajax file to be imported then what should be the code
-//  scenario 1 if images and elements are hardcoded in html then javascript should allow only 4 elements to have a display of show others should be none
-//  in scenario 1 each button element should correspond to total length -(totallength-4indexes) and dynamically respond to those images as per index of the images in total length
-// in scenariom 1 previous and next button should judge currently displayed items have index number of what and should correspond to that particular button to display items
-// in scenario 1 button should also replace previous or next buttons if there is an index greater than currently avaialable displaying button index
-
+    showPage(currentPage);
+});
