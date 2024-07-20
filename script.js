@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePageButtons() {
         // Clear existing page buttons
         const pageButtons = buttonsContainer.querySelectorAll('.btn-css[id^="btns-"]');
+        // note:  ^ means anything that starts with ${word} and then enter the word you want to keep similar e.g.g .btn-css[id^="btns-"] will select the items         
         pageButtons.forEach(button => button.remove());
 
         // Determine range of page buttons to display
