@@ -24,18 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageButtons = buttonsContainer.querySelectorAll('.btn-css[id^="btns-"]');
         pageButtons.forEach(button => button.remove());
 
-        // Add buttons based on the current page
-        const startPage = Math.max(1, currentPage - 1);
-        const endPage = Math.min(totalPages, currentPage + 1);
+        // Determine range of page buttons to display
+        let startPage = Math.max(1, currentPage - 1);
+        let endPage = Math.min(totalPages, currentPage + 1);
 
-        if (currentPage > 1) {
-            buttonsContainer.insertBefore(createPageButton(currentPage - 1), nextBtn);
+        // Ensure at least three page buttons if possible
+        if (currentPage === 1) {
+            endPage = Math.min(totalPages, currentPage + 2);
+        } else if (currentPage === totalPages) {
+            startPage = Math.max(1, currentPage - 2);
         }
 
-        buttonsContainer.insertBefore(createPageButton(currentPage), nextBtn);
-
-        if (currentPage < totalPages) {
-            buttonsContainer.insertBefore(createPageButton(currentPage + 1), nextBtn);
+        for (let i = startPage; i <= endPage; i++) {
+            buttonsContainer.insertBefore(createPageButton(i), nextBtn);
         }
     }
 
