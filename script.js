@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     
     function createButton(page){
-        const button = buttonsContainer.createElement("button");
+        const button = document.createElement("button");
         button.textContent = page;
         button.className = "btn-css";
         button.id = `btn-${page}`;
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         return button;
     }
     function updatePageButton(){
-        const pageButtons = buttonsContainer.querySelectorAll('.btn-css[id^="btns-"]');
+        const pageButtons = buttonsContainer.querySelectorAll(".btn-css[id^='btn-']");
         pageButtons.forEach(button=> button.remove());
         let startPage = Math.max(1, currentPage-1);
         let endPage = Math.min(totalPages, currentPage+1);
@@ -39,10 +39,10 @@ function showPage(page){
     const start = (page-1) * imagesPerPage;
     const end = page * imagesPerPage;
     images.forEach((image, index)=>{
-        image.classList.toggle("hdie", !(index >=start && index < end));
+        image.classList.toggle("hide", !(index >=start && index < end));
     });
     updatePageButton();
-    const pageButtons = buttonsContainer.querySelectorAll('.btn-css[id^="btns-"]');
+    const pageButtons = buttonsContainer.querySelectorAll(".btn-css[id^='btn-']");
     pageButtons.forEach((button,index)=>{
         button.classList.toggle("active", button.textContent == page);
     });
