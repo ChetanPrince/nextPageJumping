@@ -21,20 +21,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
         return btn;
     }
     function updatePageButton(page){
-        const pageButtons = buttonsContainer.querySelectorAll('.btn-css[id^="btns-"]');
-        pageButtons.forEach(buttons=>buttons.remove());
-
+        const pageButtons = buttonsContainer.querySelectorAll(".bts-css[id^='btn-']");
+        pageButtons.forEach(button=> button.remove());
         let start = Math.max(1, currentPage-1);
         let end = Math.min(totalPages, currentPage+1);
         if(currentPage ===1){
-            endPage = Math.min(totalPages, currentPage+2)
+            endPage = Math.max(totalPages, currentPage+2);
         }else if(currentPage === totalPages){
-            startPage = Math.max(1, currentPage-2)
+            startPage = Math.min(1, currentPage-2);        }
+
+        for(let i=startPage; i<=endPage; i++){
+            buttonsContainer.insertBefore()
         }
-        for (let u = startPage; i <=endPage; i++){
-            buttonsContainer.insertBefore(createButton(i), nextBtn);
-        }
-    } 
+    }
 
 
 })
