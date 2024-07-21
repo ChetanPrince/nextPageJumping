@@ -26,8 +26,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         let start = Math.max(1, currentPage-1);
         let end = Math.min(totalPages, currentPage+1);
-
-
+        if(currentPage ===1){
+            endPage = Math.min(totalPages, currentPage+2)
+        }else if(currentPage === totalPages){
+            startPage = Math.max(1, currentPage-2)
+        }
+        for (let u = startPage; i <=endPage; i++){
+            buttonsContainer.insertBefore(createButton(i), nextBtn);
+        }
     } 
+
 
 })
