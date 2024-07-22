@@ -5,20 +5,22 @@ document.addEventListener("DOMContentLoaded",()=>{
     const nextBtn = document.getElementById("nextBtn");
     let currentPage = 1;
     let imagesPerPage = 4;
-    let totalPages = Math.ceil(images.length/imagesPerPage);
+    let totalPages = Math.ceil(images.length / imagesPerPage);
 
     function createButton(page){
         const button = document.createElement("button");
         button.textContent =page;
-        button.classList.add("btn-css");
+        button.className = "btn-css";
+        
         button.id =`btns-${page}`;
         button.addEventListener("click", ()=>{
             currentPage =page;
-            showPage(page);
+            showPage(currentPage);
         });
+        return button;
     }
     function updatePageButtons(){
-        const pageButtons = document.querySelectorAll("btn-css[id^='btns-']");
+        const pageButtons = buttonContainer.querySelectorAll(".btn-css[id^='btns-']");
         pageButtons.forEach(button=>button.remove());
         
         let startPage = Math.max(1, currentPage-1);
@@ -29,7 +31,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         else if(currentPage === totalPages){
             startPage = Math.max(1, currentPage - 2);
         }
-        for(let i= startPage; i <= endPage; i++){
+        
+        for (let i = startPage; i <= endPage; i++) {
             buttonContainer.insertBefore(createButton(i), nextBtn);
         }
         }
@@ -41,12 +44,13 @@ document.addEventListener("DOMContentLoaded",()=>{
             image.classList.toggle("hide", !(index >= start && index < end));
         });
         updatePageButtons();
-        pageButtons.forEach(button=>{
-            button.classList.toggle("active", button.textContent = page);
+        const pageButtons = buttonContainer.querySelectorAll('.btn-css[id^="btns-"]');
+        pageButtons.forEach((button, index)=>{
+            button.classList.toggle("active", button.textContent == page.toString());
         });
 
-        prevBtn.disabled =page ===1 ;
-        nextBtn.disabled =page === totalPages;
+        prevBtn.disabled = page === 1 ;
+        nextBtn.disabled = page === totalPages;
     }
 
     prevBtn.addEventListener("click", ()=>{
@@ -61,6 +65,6 @@ document.addEventListener("DOMContentLoaded",()=>{
             showPage(currentPage);
         }
     });
-    updatePageButtons();
+
     showPage(currentPage);
-})
+});

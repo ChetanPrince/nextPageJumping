@@ -58,3 +58,7 @@ box-shadow: 2px 2px 10px green;
 .hide{
     display: none;
 }
+.btn-css.active {
+    background-color: yellow; 
+    color: black; 
+}
